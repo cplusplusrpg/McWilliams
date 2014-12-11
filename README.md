@@ -2,6 +2,7 @@ McWilliams
 ==========
 
 Co-authors: Matthew Oberlies and Andrew Namgoong
+================================================
 
 This is the RPG Project for the McWilliams adventure in C++ ^^
 No editing without administrators' permissions!!!
