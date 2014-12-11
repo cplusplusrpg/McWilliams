@@ -19,7 +19,7 @@ class Weapon : public Item
 {
 public:
     Weapon();
-    Weapon(int da, int du);
+    Weapon(std::string n, int value, int da, int du);
     int get_damage();
     int get_durability();
     void use_weapon();
@@ -32,7 +32,7 @@ class Armor : public Item
 {
 public:
     Armor();
-    Armor(int de, int du);
+    Armor(std::string n, int value, int de, int du);
     int get_defence();
     int get_durability();
 private:
@@ -44,7 +44,7 @@ class Potion : public Item
 {
 public:
     Potion();
-    Potion(int amount);
+    Potion(std::string n, int value, int amount);
 private:
     int recovery;
 };
