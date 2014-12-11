@@ -1,3 +1,5 @@
+// Quick question: Does the store have to be THIS LONG?! T-T
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -214,21 +216,80 @@ void store(vector<string>& inventory, vector<string>& potions)
                 }
                 if (option4 == 1)
                 {
+                    string potion, potion1, potion2;
+                    int count = 0;
                     cout << "What potion would you like to sell? ";
-                    cin >> potion;
-                    for (unsigned int i = 0; i < potions.size(), i++)
+                    cin >> potion1 >> potion2;
+                    potion = potion1 + " " + potion2;
+                    for (unsigned int i = 0; i < potions.size(); i++)
                     {
+
+                        if (!(potion == potions[i]))
+                        {
+                            count++;
+                        }
                         if (potion == potions[i])
                         {
-                            if (potions[i] == "Basic Potion")
+                            if (potion == "Basic Potion")
                             {
                                 cout << "One basic potion has been sold for 5 gold." << endl;
                                 // Add the gold into account.
+                                potions[i] = " ";
+                                break;
+                            }
+                            if (potion == "Much-Higher-Than-Basic Potion")
+                            {
+                                cout << "One Much-Higher-Than-Basic potion has been sold for 10 gold." << endl;
+                                // Add the gold into account.
+                                potions[i] = " ";
+                                break;
+                            }
+                            if (potion == "Intermediate Potion")
+                            {
+                                cout << "One Intermediate Potion has been sold for 20 gold." << endl;
+                                // Add the gold into account.
+                                potions[i] = " ";
+                                break;
+                            }
+                            if (potion == "Advanced Potion")
+                            {
+                                cout << "One Advanced Potion has been sold for 50 gold." << endl;
+                                // Add the gold into account.
+                                potions[i] = " ";
+                                break;
                             }
                         }
                     }
+                    if (count == 0 || count == 4)
+                    {
+                        cout << "There is no such potion in your inventory." << endl;
+                        cout << "Returning to the menu." << endl;
+                    }
                 }
-
+                if (option4 == 2)
+                {
+                    int ans;
+                    cout << "Type in 1 to sell a weapon or 2 to sell armor: ";
+                    cin >> ans;
+                    while (ans != 1 && ans != 2)
+                    {
+                        cout << "Invalid option." << endl;
+                        cout << "Type in 1 to sell a weapon or 2 to sell armor: ";
+                        cin >> ans;
+                    }
+                    if (ans == 1)
+                    {
+                        string name;
+                        cout << "Type in the first part of the name of the weapon you would like to sell "
+                        << "(note: with weapons with just one name, type just that one name): ";
+                        cin >> name;
+                        
+                    }
+                    if (ans == 2)
+                    {
+                        
+                    }
+                }
         }
     } while (ans != 5);
 }
