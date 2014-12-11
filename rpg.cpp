@@ -7,6 +7,31 @@
 
 using namespace std;
 
+class Inventory
+{
+public:
+    Inventory()
+    {
+    }
+    void add_weapon(Weapon w)
+    {
+        weapons.push_back(w);
+    }
+    void add_armor(Armor a)
+    {
+        armors.push_back(a);
+    }
+    void add_potion(Potion p)
+    {
+        potions.push_back(p);
+    }
+private:
+    vector<Weapon> weapons;
+    vector<Armor> armors;
+    vector<Potion> potions;
+};
+
+
 int main()
 {
     Player Tim;
