@@ -21,12 +21,16 @@ int Item::get_cost()
    return cost;
 }
 
-Weapon::Weapon() : damage(0), durability(1)
+Weapon::Weapon() : Item()
 {
+    damage = 0;
+    durability = 1;
 }
 
-Weapon::Weapon(int da, int du) : damage(da), durability(du)
+Weapon::Weapon(string n, int value, int da, int du) : Item(n, value)
 {
+    damage = da;
+    durability = du;
 }
 
 int Weapon::get_damage()
@@ -44,12 +48,16 @@ void Weapon::use_weapon()
     durability -= 1;
 }
 
-Armor::Armor() : defence(0), durability(1)
+Armor::Armor() : Item()
 {
+    defence = 0;
+    durability = 1;
 }
 
-Armor::Armor(int de, int du) : defence(de), durability(du)
+Armor::Armor(string n, int value, int de, int du) : Item(n, value)
 {
+    defence = de;
+    durability = du;
 }
 
 int Armor::get_defence()
@@ -62,10 +70,12 @@ int Armor::get_durability()
     return durability;
 }
 
-Potion::Potion() : recovery(0)
+Potion::Potion() : Item()
 {
+    recovery = 0;
 }
 
-Potion::Potion(int amount) : recovery(amount)
+Potion::Potion(string n, int value, int amount) : Item(n, value)
 {
+    recovery = amount;
 }
