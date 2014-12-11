@@ -13,24 +13,26 @@ public:
     Inventory()
     {
     }
-    void add_weapon(Weapon w)
+    void add_weapon(string n, int value, int da, int du)
     {
-        weapons.push_back(w);
+        Weapon tmp(n, value, da, du);
+        weapons.push_back(tmp);
     }
-    void add_armor(Armor a)
+    void add_armor(string n, int value, int de, int du)
     {
-        armors.push_back(a);
+        Armor tmp(n, value, de, du);
+        armors.push_back(tmp);
     }
-    void add_potion(Potion p)
+    void add_potion(string n, int value, int amount)
     {
-        potions.push_back(p);
+        Potion tmp(n, value, amount);
+        potions.push_back(tmp);
     }
 private:
     vector<Weapon> weapons;
     vector<Armor> armors;
     vector<Potion> potions;
 };
-
 
 int main()
 {
