@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void turn(Player& Tim, Monster& creature)
+void turn(Player& Tim, Monster creature)
 {
     int choice, Tim_damage, creature_damage;
     bool flee = false;
