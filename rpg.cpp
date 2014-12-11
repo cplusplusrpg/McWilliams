@@ -4,35 +4,9 @@
 #include "Player.h"
 #include "function.h"
 #include "Item.h"
+#include "Inventory.h"
 
 using namespace std;
-
-class Inventory
-{
-public:
-    Inventory()
-    {
-    }
-    void add_weapon(string n, int value, int da, int du)
-    {
-        Weapon tmp(n, value, da, du);
-        weapons.push_back(tmp);
-    }
-    void add_armor(string n, int value, int de, int du)
-    {
-        Armor tmp(n, value, de, du);
-        armors.push_back(tmp);
-    }
-    void add_potion(string n, int value, int amount)
-    {
-        Potion tmp(n, value, amount);
-        potions.push_back(tmp);
-    }
-private:
-    vector<Weapon> weapons;
-    vector<Armor> armors;
-    vector<Potion> potions;
-};
 
 int main()
 {
