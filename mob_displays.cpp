@@ -1,3 +1,4 @@
+// Note: NOT A REAL PROGRAM...just ideas ^^
 // The Slime mob (adjust health and damage as needed)
 cout << endl;
 cout << "         Timothy                       Beginner's Slime    " << endl;
