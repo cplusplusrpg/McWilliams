@@ -1,3 +1,5 @@
+//These are several functions that are not member functions of a class, but are used in the core program. They accomplish various tasks and are not necessarily related.
+
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -7,9 +9,12 @@
 
 using namespace std;
 
+
+//Turn is the function that is called to simulate a battle. At the moment, it only takes 1 Player and 1 Monster. This means no multi-enemy fights for now.
+//However, that functionality might be added in later.
 void turn(Player& Tim, Monster creature)
 {
-    srand(time(0));
+    srand(time(0));//semi-random generation for chances at critical hits or fumbles.
     int choice, Tim_damage, creature_damage;
     bool flee = false;
     cout << "Tim sees a creature! Tim has poor vision, so the identity of the creature is unknown." << endl;
@@ -17,14 +22,14 @@ void turn(Player& Tim, Monster creature)
     {
         int r = rand(), chance1 = (r % 10) + 1, chance2 = (r % 10) + 1;
         display_battle(Tim.get_health(), creature.get_health());
-        choice = battle_menu();
-        if(choice == 1)
+        choice = battle_menu();//battle_menu just gets the answer for what the Player wants to do on their turn.
+        if(choice == 1)//If they chose to attack, then:
         {
             Tim_damage = Tim.get_damage();
             creature_damage = creature.get_damage();
-            if (chance1 == 1 || chance1 == 2)
+            if (chance1 == 1 || chance1 == 2)//First determine how the attack went
             {
-                creature.hurt((Tim_damage * 3) / 2);
+                creature.hurt((Tim_damage * 3) / 2);//And apply the damage.
                 cout << "Tim hits the creature with a critical hit! The creature was hurt for " << (Tim_damage * 3) / 2 << " damage!" << endl;
             }
             else if (chance1 == 9 || chance1 == 10)
@@ -37,7 +42,7 @@ void turn(Player& Tim, Monster creature)
                 creature.hurt(Tim_damage);
                 cout << "The creature was hurt for " << Tim_damage << " damage!" << endl;
             }
-            if(creature.check_life())
+            if(creature.check_life())//If creature is still alive, they get to retaliate.
             {
                 if (chance2 == 1)
                 {
@@ -57,17 +62,17 @@ void turn(Player& Tim, Monster creature)
             }
             else
             {
-                creature.kill();
+                creature.kill();//Otherwise, the creature is dead.
             }
         }
-        else if(choice == 2)
+        else if(choice == 2)//Or the Player might choose to flee the battle.
         {
             cout << "Tim flees from the creature like a coward!" << endl;
             cout << "The creature is unable to keep up with Tim's cowardly speed." << endl;
             flee = true;
         }
-    } while(Tim.check_life() and creature.check_life() and !flee);
-    if(!creature.check_life())
+    } while(Tim.check_life() and creature.check_life() and !flee);//The battle will continue until someone is dead or the Player fled the battle.
+    if(!creature.check_life())//If the creature is the dead one, display the battle results.
     {
         cout << "The battle has ended. Tim has slain the creature with a mighty finishing blow!" << endl;
         cout << "Tim gains " << creature.get_exp_reward() << " experience from slaying the creature!" << endl;
@@ -80,6 +85,7 @@ void turn(Player& Tim, Monster creature)
     }
 }
 
+//Menu is just the main menu, and it returns the user's choice of what the wish to do. Evaluation of the user's response is taken care of in the core program.
 int menu()
 {
     int response = 0;
@@ -102,67 +108,31 @@ int menu()
     return response;
 }
 
+//Currently, we only have 1 Monster, which is a Slime. The way we are displaying the creatures is currently being worked on, so this is just temporary.
+//As this method of display will ONLY work while we only have the Slime to work with.
 void display_battle(int Tim_health, int enemy_health)
 {
     Player Tim;
     Monster creature;
-    const int max_health = creature.get_health();
-    if (enemy_health == max_health)
-    {
-        cout << endl;
-        cout << "         Timothy                       Beginner's Slime    " << endl;
-        cout << "         HP: " << Tim_health << "                            HP: " << enemy_health << "          " << endl;
-        cout << "           ---                                             " << endl;
-        cout << "          [. .]                                     ____   " << endl;
-        cout << "          [   ]  |                            ______|  |   " << endl;
-        cout << "     ----  ---   |                            |     |__|   " << endl;
-        cout << "     |  |   |    |                            |            " << endl;
-        cout << "     |  |---|----|                     _______|_______     " << endl;
-        cout << "     ----   |                          |             |     " << endl;
-        cout << "            |                          |  []     []  |     " << endl;
-        cout << "         -------                       |             |     " << endl;
-        cout << "         |     |                       |  |_______|  |     " << endl;
-        cout << "         |     |                       |_____________|     " << endl;
-        cout << "-----------------------------------------------------------" << endl;
-    }
-    if (enemy_health < max_health)
-    {
-        cout << endl;
-        cout << "         Timothy                       Beginner's Slime    " << endl;
-        cout << "         HP: " << Tim_health << "                            HP: " << enemy_health << "          " << endl;
-        cout << "           ---                                             " << endl;
-        cout << "          [. .]                                     ____   " << endl;
-        cout << "          [   ]  |                            ______|  |   " << endl;
-        cout << "     ----  ---   |                            |     |__|   " << endl;
-        cout << "     |  |   |    |                            |            " << endl;
-        cout << "     |  |---|----|                         ___|_______     " << endl;
-        cout << "     ----   |                             _|     XX  |     " << endl;
-        cout << "            |                           _| XX        |     " << endl;
-        cout << "         -------                       |             |     " << endl;
-        cout << "         |     |                       |  |_______|  |     " << endl;
-        cout << "         |     |                       |_____________|     " << endl;
-        cout << "-----------------------------------------------------------" << endl;
-
-        wait_time(1000);
-    
-        cout << endl;
-        cout << "         Timothy                       Beginner's Slime    " << endl;
-        cout << "         HP: " << Tim_health << "                            HP: " << enemy_health << "          " << endl;
-        cout << "           ---                                             " << endl;
-        cout << "          [. .]                                     ____   " << endl;
-        cout << "          [   ]  |                            ______|  |   " << endl;
-        cout << "     ----  ---   |                            |     |__|   " << endl;
-        cout << "     |  |   |    |                            |            " << endl;
-        cout << "     |  |---|----|                     _______|_______     " << endl;
-        cout << "     ----   |                          |             |     " << endl;
-        cout << "            |                          |  []     []  |     " << endl;
-        cout << "         -------                       |             |     " << endl;
-        cout << "         |     |                       |  |_______|  |     " << endl;
-        cout << "         |     |                       |_____________|     " << endl;
-        cout << "-----------------------------------------------------------" << endl;
-    }
+    int max_health = creature.get_health();
+    cout << endl;
+    cout << "         Timothy                       Beginner's Slime    " << endl;
+    cout << "         HP: " << Tim_health << "                            HP: " << enemy_health << "          " << endl;
+    cout << "           ---                                             " << endl;
+    cout << "          [. .]                                     ____   " << endl;
+    cout << "          [   ]  |                            ______|  |   " << endl;
+    cout << "     ----  ---   |                            |     |__|   " << endl;
+    cout << "     |  |   |    |                            |            " << endl;
+    cout << "     |  |---|----|                     _______|_______     " << endl;
+    cout << "     ----   |                          |             |     " << endl;
+    cout << "            |                          |  []     []  |     " << endl;
+    cout << "         -------                       |             |     " << endl;
+    cout << "         |     |                       |  |_______|  |     " << endl;
+    cout << "         |     |                       |_____________|     " << endl;
+    cout << "-----------------------------------------------------------" << endl;
 }
 
+//A menu for when the user is in battle. Currently there are only 2 options: fight or flee.
 int battle_menu()
 {
     int response = 0;
@@ -179,11 +149,4 @@ int battle_menu()
     } while(response < 1 or response > 2);
 
     return response;
-}
-
-void wait_time(clock_t sec)
-{
-    clock_t start_time = clock();
-	clock_t end_time = start_time + sec * 1000;
-	while(clock() < end_time);
 }

@@ -1,7 +1,8 @@
+//These are not the droids you are looking for...Move along. Move along.
+
 #ifndef __FUNCTION_H_INCLUDED__
 #define __FUNCTION_H_INCLUDED__
 
-#include <ctime>
 class Player;
 class Monster;
 
@@ -13,6 +14,6 @@ void turn(Player& Tim, Monster creature);
 
 void display_battle(int Tim_health, int enemy_health);
 
-void wait_time(clock_t sec);
+//These are just the function declarations for the functions explained in function.cpp
 
 #endif
