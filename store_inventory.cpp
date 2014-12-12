@@ -1,4 +1,5 @@
 // WHY IS THIS SO LONG T_T
+// The store inventory, though long, will be optimized very soon.
 
 #include <iostream>
 #include <vector>
@@ -10,8 +11,8 @@
 
 using namespace std;
 
-void store(vector<string>& inventory, vector<string>& potions);
-void show_inventory(vector<string> inventory, vector<string> potions);
+void store(vector<string>& inventory, vector<string>& potions); // The store
+void show_inventory(vector<string> inventory, vector<string> potions); // Showing the player's inventory
 void show_inventory(vector<string> inventory, vector<string> potions)
 {
     cout << "This is your current inventory." << endl;
@@ -50,7 +51,7 @@ void store(vector<string>& inventory, vector<string>& potions)
         cout << "4 to sell items from your inventory," << endl;
         cout << "5 to leave the shop: ";
         cin >> ans;
-        while (ans <= 0 || ans > 5)
+        while (ans <= 0 || ans > 5) // If option is invalid
         {
             cout << "No such option is available." << endl;
             cout << "Type in: " << endl;
@@ -61,9 +62,9 @@ void store(vector<string>& inventory, vector<string>& potions)
             cout << "5 to leave the shop: ";
             cin >> ans;
         }
-        switch(ans)
+        switch(ans) // Switch statement
         {
-            case 1:
+            case 1: // For the potions shop
                 cout << "Choose a potion!" << endl;
                 cout << "1)  Basic Potion (Recovers 30 HP)   10 gold each" << endl;
                 cout << "2)  Much-Higher-Than-Basic Potion (Recovers 50 HP)  20 gold each" << endl;
@@ -77,7 +78,7 @@ void store(vector<string>& inventory, vector<string>& potions)
                     cout << "Choose from one of the four options above: ";
                     cin >> option1;
                 }
-                if (option1 == 1)
+                if (option1 == 1) // For Basic Potion
                 {
                     cout << "How many would you like to buy? ";
                     cin >> quantity;
@@ -90,7 +91,7 @@ void store(vector<string>& inventory, vector<string>& potions)
                     // Put something here about losing gold.
                     break;
                 }
-                if (option1 == 2)
+                if (option1 == 2) // For Much-Higher-Than-Basic potion
                 {
                     cout << "How many would you like to buy? ";
                     cin >> quantity;
@@ -103,7 +104,7 @@ void store(vector<string>& inventory, vector<string>& potions)
                     // Put something here about losing gold.
                     break;
                 }
-                if (option1 == 3)
+                if (option1 == 3) // For Intermediate potion
                 {
                     cout << "How many would you like to buy? ";
                     cin >> quantity;
@@ -116,7 +117,7 @@ void store(vector<string>& inventory, vector<string>& potions)
                     // Put something here about losing gold.
                     break;
                 }
-                if (option1 == 4)
+                if (option1 == 4) // For advanced potion
                 {
                     cout << "How many would you like to buy? ";
                     cin >> quantity;
@@ -129,11 +130,11 @@ void store(vector<string>& inventory, vector<string>& potions)
                     // Put something here about losing gold.
                     break;
                 }
-                if (option1 == 5)
+                if (option1 == 5) // To go back to the menu
                 {
                     break;
                 }
-            case 2:
+            case 2: // The weapons shop
                 cout << "Choose a weapon!" << endl;
                 cout << "1) Beginner Sword: Damage(2), Durability(100), Cost(50 gold)" << endl;
                 cout << "2) Claymore: Damage(10), Durability(300), Cost(150 gold)" << endl;
@@ -223,7 +224,7 @@ void store(vector<string>& inventory, vector<string>& potions)
                     // Deduct gold from the account
                     break;
                 }
-            case 3:
+            case 3: // The armor shop
                 int a;
                 cout << "Choose some armor!" << endl;
                 cout << "1) Beginner Armor:     Defense(2)      Durability(100)     Cost(50 gold)" << endl;
@@ -297,7 +298,7 @@ void store(vector<string>& inventory, vector<string>& potions)
                     // Deduct gold from the account
                     break;
                 }
-            case 4:
+            case 4: // For selling items
                 cout << "Type in 1 to sell a potion, 2 to sell an item, or 3 to return to the menu: ";
                 cin >> option4;
                 while (option4 <= 0 || option4 > 3)
@@ -306,21 +307,20 @@ void store(vector<string>& inventory, vector<string>& potions)
                     cout << "Type in 1-3 for the options above: ";
                     cout << option4;
                 }
-                if (option4 == 1)
+                if (option4 == 1) // To sell a potion
                 {
                     string potion, potion1, potion2;
                     int count = 0;
                     cout << "What potion would you like to sell? ";
-                    cin >> potion1 >> potion2;
-                    potion = potion1 + " " + potion2;
-                    for (unsigned int i = 0; i < potions.size(); i++)
+                    cin >> potion1 >> potion2; // Since each potion has two words, take each word as input
+                    potion = potion1 + " " + potion2; // and combine them together
+                    for (unsigned int i = 0; i < potions.size(); i++) // Search through the potions vector to find a match
                     {
-
-                        if (!(potion == potions[i]))
+                        if (!(potion == potions[i])) // If there is no potion match, add 1 to count.
                         {
                             count++;
                         }
-                        if (potion == potions[i])
+                        if (potion == potions[i]) // If there is a match
                         {
                             if (potion == "Basic Potion")
                             {
@@ -352,13 +352,13 @@ void store(vector<string>& inventory, vector<string>& potions)
                             }
                         }
                     }
-                    if (count == 0 || count == 4)
+                    if (count == 0 || count == 4) // For cases if there is no such potion in the inventory
                     {
                         cout << "There is no such potion in your inventory." << endl;
                         cout << "Returning to the menu." << endl;
                     }
                 }
-                if (option4 == 2)
+                if (option4 == 2) // For selling items
                 {
                     int ans;
                     cout << "Type in 1 to sell a weapon or 2 to sell armor: ";
@@ -369,7 +369,7 @@ void store(vector<string>& inventory, vector<string>& potions)
                         cout << "Type in 1 to sell a weapon or 2 to sell armor: ";
                         cin >> ans;
                     }
-                    if (ans == 1)
+                    if (ans == 1) // For selling weapons
                     {
                         int ans, count = 0;
                         string name, name1, name2;
@@ -464,7 +464,7 @@ void store(vector<string>& inventory, vector<string>& potions)
                             cout << "Returning to the menu." << endl;
                         }
                     }
-                    if (ans == 2)
+                    if (ans == 2) // For selling armor
                     {
                         int count = 0;
                         string armor1, armor2, armor;
@@ -538,5 +538,5 @@ void store(vector<string>& inventory, vector<string>& potions)
                     }
                 }
         }
-    } while (ans != 5);
+    } while (ans != 5); // Do-while loop will repeat until the user exits the shop (aka ans == 5)
 }
