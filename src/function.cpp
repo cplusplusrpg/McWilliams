@@ -20,7 +20,7 @@ void turn(Player& Tim, Monster creature)
     cout << "Tim sees a creature! Tim has poor vision, so the identity of the creature is unknown." << endl;
     do
     {
-        int r = rand(), chance1 = (r % 100) + 1, chance2 = (r % 100) + 1;
+        int chance1 = (rand() % 100) + 1, chance2 = (rand() % 100) + 1;
         display_battle(Tim.get_health(), creature.get_health());
         choice = battle_menu();//battle_menu just gets the answer for what the Player wants to do on their turn.
         if(choice == 1)//If they chose to attack, then:
