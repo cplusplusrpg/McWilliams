@@ -5,8 +5,9 @@
 
 class Player;
 class Monster;
+class Menu;
 
-int menu();
+Menu* make_menu(Player&, Monster);
 
 int battle_menu();
 
