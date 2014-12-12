@@ -25,8 +25,8 @@ void turn(Player& Tim, Monster creature)
         choice = battle_menu();//battle_menu just gets the answer for what the Player wants to do on their turn.
         if(choice == 1)//If they chose to attack, then:
         {
-            Tim_damage = Tim.get_damage();
-            creature_damage = creature.get_damage();
+            Tim_damage = Tim.attack();
+            creature_damage = creature.attack();
             if (chance1 == 1 || chance1 == 2)//First determine how the attack went
             {
                 creature.hurt((Tim_damage * 3) / 2);//And apply the damage.
