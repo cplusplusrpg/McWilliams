@@ -11,6 +11,9 @@ This project is intended for learning purposes. It is a good way to experiment w
 
 Before compiling, MAKE SURE that Monster.h, Player.h, Item.h, Inventory.h, and function.h are in the same folder as rpg.cpp! +_+
 
-Compile in a unix system by running: g++ Monster.cpp Player.cpp Item.cpp Inventory.cpp function.cpp rpg.cpp -o rpg
+Compile in a unix system by running: 
+- mkdir build 
+- cmake ..
+- make
 
-Then execute it by running: ./rpg
+Then execute it by running: ./mcwilliams
