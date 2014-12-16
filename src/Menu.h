@@ -4,13 +4,18 @@
 
 using namespace std;
 
+class Functor {
+public:
+    virtual void call() = 0;
+};
+
 class Entry {
 public:
-    Entry(char selection, string description, function<void(void)> action)
+    Entry(char selection, string description, Functor* action)
         : m_selection(selection), m_description(description),
             m_action(action) {}
 
-    void perform_action() { m_action(); }
+    void perform_action() { m_action->call(); }
 
     string description() { return m_description; }
 
@@ -20,7 +25,7 @@ public:
 private:
     char m_selection;
     string m_description;
-    function<void(void)> m_action;
+    Functor* m_action;
 };
 
 class Menu {
