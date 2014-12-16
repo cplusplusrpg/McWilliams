@@ -21,41 +21,31 @@ void turn(Player& Tim, Monster creature)
     cout << "Tim sees a creature! Tim has poor vision, so the identity of the creature is unknown." << endl;
     do
     {
-        int r = rand(), chance1 = (r % 10) + 1, chance2 = (r % 10) + 1;
+        int chance1 = (rand() % 100) + 1, chance2 = (rand() % 100) + 1;
         display_battle(Tim.get_health(), creature.get_health());
         choice = battle_menu();//battle_menu just gets the answer for what the Player wants to do on their turn.
         if(choice == 1)//If they chose to attack, then:
         {
-            Tim_damage = Tim.get_damage();
-            creature_damage = creature.get_damage();
-            if (chance1 == 1 || chance1 == 2)//First determine how the attack went
+            Tim_damage = Tim.attack();
+            creature_damage = creature.attack();
+            if(chance1 <= 5)//First determine how the attack went
             {
-                creature.hurt((Tim_damage * 3) / 2);//And apply the damage.
-                cout << "Tim hits the creature with a critical hit! The creature was hurt for " << (Tim_damage * 3) / 2 << " damage!" << endl;
+                creature.hurt(Tim_damage * 3 / 2);
+                cout << "Tim lands a critical hit! The creature was hurt for " << Tim_damage * 3 / 2 << " damage!" << endl;
             }
-            else if (chance1 == 9 || chance1 == 10)
-            {
-                creature.hurt(Tim_damage / 2);
-                cout << "Tim fumbles with the weapon and the creature seems undazed. The creature was hurt for " << Tim_damage / 2 << " damage!" << endl;
-            }
-            else if (chance1 != 1 && chance1 != 2 && chance1 != 9 && chance1 != 10)
+            else
             {
                 creature.hurt(Tim_damage);
                 cout << "The creature was hurt for " << Tim_damage << " damage!" << endl;
             }
             if(creature.check_life())//If creature is still alive, they get to retaliate.
             {
-                if (chance2 == 1)
+                if(chance2 <= 5)
                 {
                     Tim.hurt(creature_damage * 2);
                     cout << "The creature lands a critical hit! Tim was hurt for " << creature_damage * 2 << " damage!" << endl;
                 }
-                else if (chance2 == 2 || chance2 == 3)
-                {
-                    Tim.hurt(creature_damage / 2);
-                    cout << "The creature trips and falls on its face! Tim was hurt for " << creature_damage / 2 << " damage!" << endl;
-                }
-                else if (chance2 != 1 && chance2 != 2 && chance2 != 3)
+                else
                 {
                     Tim.hurt(creature_damage);
                     cout << "Tim was hurt for " << creature_damage << " damage!" << endl;
