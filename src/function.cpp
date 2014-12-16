@@ -6,6 +6,7 @@
 #include "function.h"
 #include "Monster.h"
 #include "Player.h"
+#include "Menu.h"
 
 using namespace std;
 
@@ -76,26 +77,27 @@ void turn(Player& Tim, Monster creature)
 }
 
 //Menu is just the main menu, and it returns the user's choice of what the wish to do. Evaluation of the user's response is taken care of in the core program.
-int menu()
+Menu* make_menu(Player& tim, Monster slime)
 {
-    int response = 0;
-    do
-    {
-        cout << "What would you like to do?" << endl;
-        cout << "1) Wander in the wilderness?" << endl;
-        cout << "2) Check the local stores for goods?" << endl;
-        cout << "3) Take a look at how your adventure has progressed?" << endl;
-        cout << "4) Take a moment to catch your breath? (Regain health)" << endl;
-        cout << "5) Lay your weary head to rest?" << endl;
-        cin >> response;
-        if(response < 1 or response > 5)
-        {
-            cout << "Invalid response. Adventure confused." << endl;
-            cin >> response;
-        }
-    } while(response < 1 or response > 5);
-
-    return response;
+    Menu *menu = new Menu;
+    menu->add_entry(Entry('1', "Wander in the wilderness?", [&tim,slime] () {
+            turn(tim, slime);
+        }));
+    menu->add_entry(Entry('2', "Check the local stores for goods?", [] () {
+            cout << "tim walks to the store, and sees a sign that reads \"Closed for lunch\"." << endl;
+        }));
+    menu->add_entry(Entry('3', "Take a look at how your adventure has progressed?", [&] () {
+            tim.status(); 
+        }));
+    menu->add_entry(Entry('4', "Take a moment to catch your breath? (Regain health)", [&] () {
+            tim.rest();
+            cout << "timothy rests for a moment and he can feel his muscles relax." << endl;
+            cout << "tim has " << tim.get_health() << " health." << endl;
+        }));
+    menu->add_entry(Entry('5', "Lay your weary head to rest?", [] () {
+            exit(0);
+        }));
+    return menu;
 }
 
 //Currently, we only have 1 Monster, which is a Slime. The way we are displaying the creatures is currently being worked on, so this is just temporary.
