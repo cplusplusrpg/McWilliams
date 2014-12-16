@@ -21,6 +21,7 @@ public:
     int get_exp_reward();
     int get_gold_reward();
     bool check_life();
+    int attack();
     void hurt(int value);
     void check_health();
     void kill();

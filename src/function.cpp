@@ -21,41 +21,31 @@ void turn(Player& Tim, Monster creature)
     cout << "Tim sees a creature! Tim has poor vision, so the identity of the creature is unknown." << endl;
     do
     {
-        int r = rand(), chance1 = (r % 10) + 1, chance2 = (r % 10) + 1;
+        int chance1 = (rand() % 100) + 1, chance2 = (rand() % 100) + 1;
         display_battle(Tim.get_health(), creature.get_health());
         choice = battle_menu();//battle_menu just gets the answer for what the Player wants to do on their turn.
         if(choice == 1)//If they chose to attack, then:
         {
-            Tim_damage = Tim.get_damage();
-            creature_damage = creature.get_damage();
-            if (chance1 == 1 || chance1 == 2)//First determine how the attack went
+            Tim_damage = Tim.attack();
+            creature_damage = creature.attack();
+            if(chance1 <= 5)//First determine how the attack went
             {
-                creature.hurt((Tim_damage * 3) / 2);//And apply the damage.
-                cout << "Tim hits the creature with a critical hit! The creature was hurt for " << (Tim_damage * 3) / 2 << " damage!" << endl;
+                creature.hurt(Tim_damage * 3 / 2);
+                cout << "Tim lands a critical hit! The creature was hurt for " << Tim_damage * 3 / 2 << " damage!" << endl;
             }
-            else if (chance1 == 9 || chance1 == 10)
-            {
-                creature.hurt(Tim_damage / 2);
-                cout << "Tim fumbles with the weapon and the creature seems undazed. The creature was hurt for " << Tim_damage / 2 << " damage!" << endl;
-            }
-            else if (chance1 != 1 && chance1 != 2 && chance1 != 9 && chance1 != 10)
+            else
             {
                 creature.hurt(Tim_damage);
                 cout << "The creature was hurt for " << Tim_damage << " damage!" << endl;
             }
             if(creature.check_life())//If creature is still alive, they get to retaliate.
             {
-                if (chance2 == 1)
+                if(chance2 <= 5)
                 {
                     Tim.hurt(creature_damage * 2);
                     cout << "The creature lands a critical hit! Tim was hurt for " << creature_damage * 2 << " damage!" << endl;
                 }
-                else if (chance2 == 2 || chance2 == 3)
-                {
-                    Tim.hurt(creature_damage / 2);
-                    cout << "The creature trips and falls on its face! Tim was hurt for " << creature_damage / 2 << " damage!" << endl;
-                }
-                else if (chance2 != 1 && chance2 != 2 && chance2 != 3)
+                else
                 {
                     Tim.hurt(creature_damage);
                     cout << "Tim was hurt for " << creature_damage << " damage!" << endl;
@@ -86,27 +76,65 @@ void turn(Player& Tim, Monster creature)
     }
 }
 
+class TakeTurn : public Functor {
+public:
+    TakeTurn(Player& tim, Monster slime) : player(tim), monster(slime) {};
+
+    virtual void call() {
+        turn(player, monster);
+    }
+
+private:
+    Player& player;
+    Monster monster;
+};
+
+class Store : public Functor {
+public:
+    virtual void call() {
+        cout << "tim walks to the store, and sees a sign that reads \"Closed for lunch\"." << endl;
+    }
+};
+
+class Progress : public Functor {
+public:
+    Progress(Player& tim) : player(tim) {};
+    virtual void call() {
+        player.status(); 
+    }
+private:
+    Player& player;
+};
+
+class RegainHealth : public Functor {
+public:
+    RegainHealth(Player& tim) : player(tim) {};
+    virtual void call() {
+        player.rest();
+        cout << "timothy rests for a moment and he can feel his muscles relax." << endl;
+        cout << "tim has " << player.get_health() << " health." << endl;
+    }
+
+private:
+    Player& player;
+};
+
+class ExitProgram : public Functor {
+public:
+    virtual void call() {
+        exit(0);
+    }
+};
+
 //Menu is just the main menu, and it returns the user's choice of what the wish to do. Evaluation of the user's response is taken care of in the core program.
 Menu* make_menu(Player& tim, Monster slime)
 {
     Menu *menu = new Menu;
-    menu->add_entry(Entry('1', "Wander in the wilderness?", [&tim,slime] () {
-            turn(tim, slime);
-        }));
-    menu->add_entry(Entry('2', "Check the local stores for goods?", [] () {
-            cout << "tim walks to the store, and sees a sign that reads \"Closed for lunch\"." << endl;
-        }));
-    menu->add_entry(Entry('3', "Take a look at how your adventure has progressed?", [&] () {
-            tim.status(); 
-        }));
-    menu->add_entry(Entry('4', "Take a moment to catch your breath? (Regain health)", [&] () {
-            tim.rest();
-            cout << "timothy rests for a moment and he can feel his muscles relax." << endl;
-            cout << "tim has " << tim.get_health() << " health." << endl;
-        }));
-    menu->add_entry(Entry('5', "Lay your weary head to rest?", [] () {
-            exit(0);
-        }));
+    menu->add_entry(Entry('1', "Wander in the wilderness?", new TakeTurn(tim, slime)));
+    menu->add_entry(Entry('2', "Check the local stores for goods?", new Store));
+    menu->add_entry(Entry('3', "Take a look at how your adventure has progressed?", new Progress(tim)));
+    menu->add_entry(Entry('4', "Take a moment to catch your breath? (Regain health)", new RegainHealth(tim)));
+    menu->add_entry(Entry('5', "Lay your weary head to rest?", new ExitProgram));
     return menu;
 }
 

@@ -1,6 +1,7 @@
 CPP_FILES := $(wildcard src/*.cpp)
 OBJ_FILES := $(addprefix obj/,$(notdir $(CPP_FILES:.cpp=.o)))
-CPP_FLAGS := -std=c++11
+#CPP_FLAGS := -std=c++11
+CPP_FLAGS :=
 
 all: $(OBJ_FILES)
 	g++ $(CPP_FLAGS) -o mcwilliams $^
