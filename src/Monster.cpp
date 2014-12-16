@@ -2,6 +2,8 @@
 //They have a boolean value that will return whether they are alive or not.
 
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include "Monster.h"
 
 using namespace std;
@@ -71,8 +73,46 @@ bool Monster::check_life()
     return alive;
 }
 
-//Kill function to forcibly set the alive flag of a monster to zero. Might be used if an ability kills regardless of hitpoints.
+//Kill function to forcibly set the alive flag of a monster to zero.
+//Might be used if an ability kills regardless of hitpoints.
 void Monster::kill()
 {
     alive = false;
+}
+
+//Random damage generation. Can remove fumbles and reduce critical hit chance with this addition.
+int Monster::attack()
+{
+    srand(time(0));
+    int r = (rand() % 2) + 1;
+    int r2 = (rand() % (damage / 2)) + 1;
+    if(r == 1)
+    {
+        return damage + r2;
+    }
+    else
+    {
+        return damage - r2;
+    }
+}
+
+void Monster::display_battle(int player_health, int monster_health, char player[][30], char display[][30])
+{
+    cout << endl;
+    cout << "         Timothy                           Monster    " << endl;
+    cout << "         HP: " << player_health << "                              HP: " << monster_health << "          " << endl;
+    for (int i = 0; i < 11; i++)
+    {
+        for (int j = 0; j < 30; j++)
+        {
+            cout << player[i][j];
+        }
+        cout << " ";
+        for (int k = 0; k < 30; k++)
+        {
+            cout << display[i][k];
+        }
+        cout << endl;
+    }
+    cout << "-----------------------------------------------------------" << endl;
 }
