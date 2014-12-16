@@ -1,0 +1,3 @@
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+file(GLOB tests_SOURCES *.cpp)
+set(test_SOURCES ${tests_SOURCES} PARENT_SCOPE)
