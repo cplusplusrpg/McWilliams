@@ -17,8 +17,12 @@ int main()
     Monster Slime;//1 Player and 1 Monster are created.
     int choice;
 
-    cout << "These are the Adventures of Timothy McWilliams. The greatest story ever told." << endl;
-    cout << "The fate of Timothy McWilliams depends on you." << endl << endl;
+    cout << endl << "*********************************************************************************" << endl;
+    cout << "*                                                                               *" << endl;
+    cout << "* These are the Adventures of Timothy McWilliams. The greatest story ever told. *" << endl;
+    cout << "*                The fate of Timothy McWilliams DEPENDS ON YOU.                 *" << endl;
+    cout << "*                                                                               *" << endl;
+    cout << "*********************************************************************************" << endl << endl;
     do
     {
         choice = menu();//After asking the user what they would like to do,
@@ -38,8 +42,8 @@ int main()
         else if(choice == 4)
         {
             Tim.rest();
-            cout << "Timothy rests for a moment and he can feel his muscles relax." << endl;
-            cout << "Tim has " << Tim.get_health() << " health." << endl;
+            cout << "Timothy takes a blanket and pillow and takes a quick 5-minute nap." << endl;
+            cout << "Tim now has " << Tim.get_health() << " health." << endl;
         }
     } while(choice < 5 and choice > 0);
 	return 0;
