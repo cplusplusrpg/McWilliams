@@ -21,9 +21,11 @@ public:
     int get_exp_reward();
     int get_gold_reward();
     bool check_life();
+    int attack();
     void hurt(int value);
     void check_health();
     void kill();
+    void display_battle(int player_health, int monster_health, char player[][30], char display[][30]);
 private://However, these member variables are unique to monsters, and not any derived classes (*cough* Player *cough*).
     int exp_reward;
     int gold_reward;
