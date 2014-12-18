@@ -18,7 +18,14 @@ using namespace std;
 int main()
 {
     Player Tim;
-    Monster Slime;//1 Player and 1 Monster are created.
+    Monster Slime(1, 25, 7, 5, 10);//1 Player and 1 Monster are created.
+    Monster Smaug(100, 100000, 25000, 5000000, 100000000);//Smaug, the Dragon from the Hobbit.
+    Monster Mushroom(5, 50, 12, 10, 20);
+    Monster Hobo(10, 100, 20, 20, 30);
+    vector<Monster> monsters;
+    monsters.push_back(Slime);
+    monsters.push_back(Mushroom);
+    monsters.push_back(Hobo);
     char choice;
 
     cout << "These are the Adventures of Timothy McWilliams. The greatest story ever told." << endl;
@@ -26,7 +33,7 @@ int main()
     do
     {
         //choice = menu();//After asking the user what they would like to do,
-        Menu *menu = make_menu(Tim, Slime);
+        Menu *menu = make_menu(Tim, monsters);
         menu->print_menu();
         cin >> choice;
         menu->perform_selection(choice);
