@@ -4,9 +4,12 @@
 #ifndef __MONSTER_H_INCLUDED__
 #define __MONSTER_H_INCLUDED__
 
+#include <string>
+
 class Monster
 {
 protected://These variables will be extended to any derived classes (namely Player).
+    std::string name;
     int level;
     int current_health;
     int max_health;
@@ -14,8 +17,8 @@ protected://These variables will be extended to any derived classes (namely Play
     bool alive;//A boolean value to determine status of life or death.
 public:
     Monster();
-    Monster(int health, int power);
-    Monster(int lvl, int health, int power, int g_reward, int e_reward);
+    Monster(std::string n, int health, int power);
+    Monster(std::string n, int lvl, int health, int power, int g_reward, int e_reward);
     int get_level();
     int get_health();
     int get_damage();

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Player::Player() : Monster(100, 5)
+Player::Player() : Monster("Timothy McWilliams", 1, 100, 5, 0, 0)
 {
     exp = 0;
     max_exp = 30;
