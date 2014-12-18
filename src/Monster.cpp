@@ -9,8 +9,8 @@
 using namespace std;
 
 
-//A generic monster is just level 1, with 25 health that does 7 damage. It rewards 10 exp and 5 gold.
-Monster::Monster() : level(1), max_health(25), current_health(25), damage(7), alive(true), exp_reward(10), gold_reward(5)
+//A generic monster is just level 1, with 100 health that does 5 damage. It rewards no exp and no gold.
+Monster::Monster() : level(1), max_health(100), current_health(100), damage(5), alive(true), exp_reward(0), gold_reward(0)
 {
 }
 
@@ -18,6 +18,17 @@ Monster::Monster() : level(1), max_health(25), current_health(25), damage(7), al
 //This will be changed to allow more control once the game is a bit more developed.
 Monster::Monster(int health, int power) : level(1), current_health(health), max_health(health), damage(power), alive(true), exp_reward(10), gold_reward(5)
 {
+}
+
+Monster::Monster(int lvl, int health, int power, int g_reward, int e_reward)
+{
+    level = lvl;
+    current_health = health;
+    max_health = current_health;
+    damage = power;
+    alive = true;
+    exp_reward = e_reward;
+    gold_reward = g_reward;
 }
 
 //Very simple public member functions that will return the corresponding value.

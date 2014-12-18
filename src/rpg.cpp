@@ -18,7 +18,8 @@ using namespace std;
 int main()
 {
     Player Tim;
-    Monster Slime;//1 Player and 1 Monster are created.
+    Monster Slime(1, 25, 7, 5, 10);//1 Player and 1 Monster are created.
+    Monster Smaug(100, 100000, 25000, 5000000, 100000000);//Smaug, the Dragon from the Hobbit.
     char choice;
 
     cout << "These are the Adventures of Timothy McWilliams. The greatest story ever told." << endl;

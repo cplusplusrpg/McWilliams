@@ -15,6 +15,7 @@ protected://These variables will be extended to any derived classes (namely Play
 public:
     Monster();
     Monster(int health, int power);
+    Monster(int lvl, int health, int power, int g_reward, int e_reward);
     int get_level();
     int get_health();
     int get_damage();
