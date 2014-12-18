@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
+#include <string>
 #include "function.h"
 #include "Monster.h"
 #include "Player.h"
