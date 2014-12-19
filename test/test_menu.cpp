@@ -1,5 +1,8 @@
+#include <iostream>
 #include <gtest/gtest.h>
 #include "Menu.h"
+
+using namespace std;
 
 
 class TestFunctor : public Functor {
@@ -17,7 +20,7 @@ protected:
     FunctorTest() : 
         entry('a', "Test Entry", new TestFunctor(intList)) {}
 
-    virtual void setUp() {
+    virtual void SetUp() {
         intList.push_back(0);
     }
 
@@ -27,21 +30,23 @@ protected:
 };
 
 TEST_F(FunctorTest, TestEntry) {
-    ASSERT_EQ(0, intList.size());
+    ASSERT_EQ(1, intList.size());
     entry.perform_action();
-    ASSERT_EQ(1, intList.size()) << "Vector should have length 1 after "
+    ASSERT_EQ(2, intList.size()) << "Vector should have length 1 after "
         << "perform_action";
     ASSERT_EQ(0, intList[0]);
+    ASSERT_EQ(0, intList[1]);
     ASSERT_EQ("Test Entry", entry.description());
     ASSERT_EQ('a', entry.selection());
 }
 
 TEST_F(FunctorTest, Menu) {
     m.add_entry(entry);
-    ASSERT_EQ(0, intList.size());
+    ASSERT_EQ(1, intList.size());
 
     m.perform_selection('a');
-    ASSERT_EQ(1, intList.size()) << "Vector should have length 1 after "
+    ASSERT_EQ(2, intList.size()) << "Vector should have length 1 after "
         << "perform_action";
     ASSERT_EQ(0, intList[0]);
+    ASSERT_EQ(0, intList[1]);
 }
