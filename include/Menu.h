@@ -1,3 +1,6 @@
+#ifndef _MENU_H_
+#define _MENU_H_
+
 #include <vector>
 #include <string>
 #include <functional>
@@ -40,3 +43,4 @@ private:
 
 };
 
+#endif // _MENU_H_
