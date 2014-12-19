@@ -12,29 +12,36 @@ private:
     vector<int>& m_ints;
 };
 
-TEST(EntryTest, TestPerform) {
+class FunctorTest : public ::testing::Test {
+protected:
+    FunctorTest() : 
+        entry('a', "Test Entry", new TestFunctor(intList)) {}
+
+    virtual void setUp() {
+        intList.push_back(0);
+    }
+
     vector<int> intList;
-    ASSERT_EQ(intList.size(), 0);
-    Entry e('a', "Test Entry", new TestFunctor(intList));
+    Entry entry;
+    Menu m;
+};
+
+TEST_F(FunctorTest, TestEntry) {
     ASSERT_EQ(0, intList.size());
-    e.perform_action();
+    entry.perform_action();
     ASSERT_EQ(1, intList.size()) << "Vector should have length 1 after "
         << "perform_action";
-    ASSERT_EQ("Test Entry", e.description());
-    ASSERT_EQ('a', e.selection());
+    ASSERT_EQ(0, intList[0]);
+    ASSERT_EQ("Test Entry", entry.description());
+    ASSERT_EQ('a', entry.selection());
 }
 
-TEST(MenuTest, TestPerform) {
-    vector<int> intList;
-    ASSERT_EQ(intList.size(), 0);
-    Entry e('a', "Test Entry", new TestFunctor(intList));
-    Menu m;
-    m.add_entry(e);
+TEST_F(FunctorTest, Menu) {
+    m.add_entry(entry);
     ASSERT_EQ(0, intList.size());
 
     m.perform_selection('a');
     ASSERT_EQ(1, intList.size()) << "Vector should have length 1 after "
         << "perform_action";
-    ASSERT_EQ("Test Entry", e.description());
-    ASSERT_EQ('a', e.selection());
+    ASSERT_EQ(0, intList[0]);
 }
